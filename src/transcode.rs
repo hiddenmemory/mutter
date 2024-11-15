@@ -6,7 +6,7 @@ use crate::ModelError;
 /// Decode a byte array of audio into a float array
 pub fn decode(bytes: Vec<u8>) -> Result<Vec<f32>, ModelError> {
     let input = Cursor::new(bytes);
-    let source = Decoder::new(input).unwrap();
+    let source = Decoder::new(input).map_err(ModelError::WhisperError);
     let output_sample_rate = 16000;
     let channels = 1;
     // Resample to output sample rate and channels
